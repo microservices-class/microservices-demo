@@ -26,6 +26,7 @@ The script configures Minikube to run with 4608MB of memory (was enough to run t
 
 The first step we set up was to set the limits and requests of the target service that was selected to be autoscaled.
 The values set:
+
 ```yaml
 resources:
           limits:
@@ -36,10 +37,12 @@ resources:
 This can be found under /deploy/kubernetes/complete-demo.yaml (catalogue Deployment). To test the scaling, we decide to use the CPU as the metric of choice.
 
 To check the current status of the autoscaler mechanism:
+
 ```shell
-kubectl get hpa
+kubectl get hpa -n sock-shop
 ```
 Just like the [tutorial](https://dzone.com/articles/how-to-use-kubernetes-for-autoscaling), we used the the [wrk tool](https://github.com/wg/wrk) by running it through a Docker container. To start gerating load, one can run the following command:
+
 ```shell
 docker run --rm loadimpact/loadgentest-wrk -c 600 -t 600 -d 10m http://192.168.99.100:30001/catalogue
 ```
