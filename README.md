@@ -17,7 +17,7 @@ To run the application, one needs to clone this repo, start Minikube e deploy th
 
 > Before deploying the app into Minikube, make sure to enable metrics-server by executing: minikube addons enable metrics-server
 
-To facilitate, a script (start_app.sh) was created and placed on the root of this repo.
+To facilitate, a script [start_app.sh](https://github.com/microservices-class/microservices-demo/blob/master/start_app.sh) was created and placed on the root of this repo.
 The general steps to deploy the app can be found on the [Socker Shop docs](https://kubernetes.io/docs/tasks/tools/install-minikube/)
 
 The script configures Minikube to run with 4608MB of memory (was enough to run the app and the load) and uses virtualbox as its driver.
