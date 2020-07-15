@@ -24,7 +24,7 @@ The script configures Minikube to run with 4608MB of memory (was enough to run t
 
 ## The Autoscaling Operation
 
-The first step we set up was to set the limits and requests of the target service that was selected to be autoscaled.
+The first step we set up was to set the limits and requests of the target service (catalogue - GET /catalogue) that was selected to be autoscaled.
 The values set:
 
 ```yaml
@@ -36,14 +36,16 @@ resources:
 ```            
 This can be found under /deploy/kubernetes/complete-demo.yaml (catalogue Deployment). To test the scaling, we decide to use the CPU as the metric of choice.
 
+Moreover, the YAML file containing the rules that dictates the minimum and maxium number of Pods as well as the parameter used to trigger the replication can be found [here](https://github.com/microservices-class/microservices-demo/blob/master/deploy/kubernetes/autoscaling/catalogue-hsc.yaml). As can be seen, the trigger was set to 50% of CPU usage. Also, the minimum and maximum number of Pods was definied to 1 and 10 respectively.
+
 To check the current status of the autoscaler mechanism:
 
-```shell
+```sh
 kubectl get hpa -n sock-shop
 ```
 Just like the [tutorial](https://dzone.com/articles/how-to-use-kubernetes-for-autoscaling), we used the the [wrk tool](https://github.com/wg/wrk) by running it through a Docker container. To start gerating load, one can run the following command:
 
-```shell
+```sh
 docker run --rm loadimpact/loadgentest-wrk -c 600 -t 600 -d 10m http://192.168.99.100:30001/catalogue
 ```
 This opens 600 conections/requisitions on the passed URL during 10 minutes.
